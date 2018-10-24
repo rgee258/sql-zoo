@@ -1,79 +1,80 @@
-# 1. Introduction
-
-SELECT name, continent, population FROM world;
-
-# 2. Large Countries
+# 1.
 
 SELECT name FROM world
-WHERE population > 200000000;
+  WHERE name LIKE 'Y%';
 
-# 3. Per capita GDP
+# 2.
 
-SELECT name, gdp/population
-FROM world
-WHERE population > 200000000;
+SELECT name FROM world
+  WHERE name LIKE '%y';
 
-# 4. South America in Millions
+# 3.
 
-SELECT name, population/1000000
-FROM world
-WHERE continent = 'South America';
+SELECT name FROM world
+  WHERE name LIKE '%x%';
 
-# 5. France, Germany, Italy
+# 4.
 
-SELECT name, population
-FROM world
-WHERE name IN ('France', 'Germany', 'Italy');
+SELECT name FROM world
+  WHERE name LIKE '%land';
 
-# 6. United
+# 5.
 
-SELECT name
-FROM world
-WHERE name LIKE '%United%';
+SELECT name FROM world
+  WHERE name LIKE 'C%ia';
 
-# 7. Two ways to be big
+# 6.
 
-SELECT name, population, area
-FROM world
-WHERE area > 3000000 OR population > 250000000;
+SELECT name FROM world
+  WHERE name LIKE '%oo%';
 
-# 8. One or the other (but not both)
+# 7.
 
-SELECT name, population, area
-FROM world
-WHERE area > 3000000 XOR population > 250000000;
+SELECT name FROM world
+  WHERE name LIKE '%a%a%a%';
 
-# 9. Rounding
+# 8.
 
-SELECT name, ROUND(population/1000000, 2), ROUND(gdp/1000000000, 2)
-FROM world
-WHERE continent = 'South America';
+SELECT name FROM world
+ WHERE name LIKE '_t%'
+ORDER BY name;
 
-# 10. Trillion dollar economies
+# 9.
 
-SELECT name, ROUND(gdp/population, -3)
-FROM world
-WHERE gdp > 1000000000000;
+SELECT name FROM world
+ WHERE name LIKE '%o__o%';
 
-# 11. Name and capital have the same length
+ # 10.
 
-SELECT name, capital
-FROM world
-WHERE LENGTH(name) = LENGTH(capital);
+ SELECT name FROM world
+ WHERE name LIKE '____';
 
-# 12. Matching name and capital
+ # 11.
 
-SELECT name, capital
-FROM world
-WHERE LEFT(name, 1) = LEFT(capital, 1) AND name <> capital;
-
-# 13. All the vowels
-
-SELECT name
+ SELECT name
   FROM world
-WHERE name NOT LIKE '% %'
-  AND name LIKE '%a%'
-  AND name LIKE '%e%'
-  AND name LIKE '%i%'
-  AND name LIKE '%o%'
-  AND name LIKE '%u%';
+ WHERE name = capital;
+
+ # 12.
+
+ SELECT name
+  FROM world
+ WHERE concat(name, ' City') = capital;
+
+# 13.
+
+SELECT capital, name
+FROM world
+WHERE capital LIKE concat(name, '%');
+
+# 14.
+
+SELECT capital, name
+FROM world
+WHERE capital LIKE concat(name, '_%');
+
+# 15.
+
+SELECT name, replace(capital, name, '') AS ext
+FROM world
+WHERE capital LIKE concat(name, '_%');
